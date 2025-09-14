@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Zapatillas</title>
+    <style>
+        /* Estilo general */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Fondo oscuro */
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            background-color: #1b1b1b;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff9800;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            filter: brightness(1.2) contrast(1.5); /* Contraste blanco en las imágenes */
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 10px 0;
+        }
+
+        .product-info p {
+            margin: 5px 0;
+            color: #ccc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1b1b1b;
+            margin-top: 40px;
+        }
+        
+        /* Estilos para las tallas (sin duplicados) */
+        .sizes-container {
+            margin: 15px 0;
+        }
+        
+        .sizes-container h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-weight: 600;
+        }
+        
+        .size-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+        
+        .size-option {
+            border: 1px solid #444;
+            padding: 8px 5px;
+            text-align: center;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #fff;
+            background-color: #2a2a2a;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .size-option:hover, .size-option.selected {
+            background-color: #ff9800;
+            border-color: #ff9800;
+            color: #000;
+        }
+        
+        .price {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+            color: #ff9800;
+        }
+        
+        /* Estilos para el formulario */
+        #formulario {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+        }
+        
+        #formulario h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff9800;
+        }
+        
+        #formulario label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        #formulario input,
+        #formulario textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+        
+        #formulario button {
+            background-color: #ff9800;
+            color: #000;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        
+        #formulario button:hover {
+            background-color: #ffa726;
+        }
+        
+        /* Estilos para el mensaje de error */
+        .error-message {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff4d4d;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s, fadeOut 0.3s 2.7s forwards;
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; top: 0; }
+            to { opacity: 1; top: 20px; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; top: 20px; }
+            to { opacity: 0; top: 0; }
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Tienda de Zapatillas</header>
+    <nav>
+        <a href="Index.html">Inicio</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <div class="container">
+        <!-- Producto 1 -->
+        <div class="product-card" data-product-id="1">
+            <a href="#" class="product-image-link">
+                <img src="Imagenes/NIKE+SB+DUNK+LOW+PRO+QS.png" alt="Nike SB Dunk Low Pro x Limosine Skateboards">
+            </a>
+            <div class="product-info">
+                <h3>Nike SB Dunk Low Pro x Limosine Skateboards</h3>
+                <div class="sizes-container">
+                    <h4>Tallas disponibles</h4>
+                    <div class="size-grid">
+                        <a href="detalle.html?producto=1&talla=40" class="size-option">EU 40</a>
+                        <a href="detalle.html?producto=1&talla=41" class="size-option">EU 41</a>
+                        <a href="detalle.html?producto=1&talla=42" class="size-option">EU 42</a>
+                        <a href="detalle.html?producto=1&talla=43" class="size-option">EU 43</a>
+                    </div>
+                </div>
+                <p class="price">100€</p>
+            </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="product-card" data-product-id="2">
+            <a href="#" class="product-image-link">
+                <img src="Imagenes/NIKE+DUNK+LOW+RETRO+PRM.png" alt="Black and Pink Rise">
+            </a>
+            <div class="product-info">
+                <h3>Black and Pink Rise</h3>
+                <div class="sizes-container">
+                    <h4>Tallas disponibles</h4>
+                    <div class="size-grid">
+                        <a href="detalle.html?producto=2&talla=40" class="size-option">EU 40</a>
+                        <a href="detalle.html?producto=2&talla=41" class="size-option">EU 41</a>
+                        <a href="detalle.html?producto=2&talla=42" class="size-option">EU 42</a>
+                        <a href="detalle.html?producto=2&talla=43" class="size-option">EU 43</a>
+                        <a href="detalle.html?producto=2&talla=44" class="size-option">EU 44</a>
+                        <a href="detalle.html?producto=2&talla=45" class="size-option">EU 45</a>
+                    </div>
+                </div>
+                <p class="price">100€</p>
+            </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="product-card" data-product-id="3">
+            <a href="#" class="product-image-link">
+                <img src="Imagenes/NIKE+P-6000+SE.png" alt="Nike P-6000 Denim">
+            </a>
+            <div class="product-info">
+                <h3>Nike P-6000 "Denim"</h3>
+                <div class="sizes-container">
+                    <h4>Tallas disponibles</h4>
+                    <div class="size-grid">
+                        <a href="detalle.html?producto=3&talla=40" class="size-option">EU 40</a>
+                        <a href="detalle.html?producto=3&talla=41" class="size-option">EU 41</a>
+                        <a href="detalle.html?producto=3&talla=42" class="size-option">EU 42</a>
+                        <a href="detalle.html?producto=3&talla=43" class="size-option">EU 43</a>
+                        <a href="detalle.html?producto=3&talla=44" class="size-option">EU 44</a>
+                        <a href="detalle.html?producto=3&talla=45" class="size-option">EU 45</a>
+                    </div>
+                </div>
+                <p class="price">100€</p>
+            </div>
+        </div>
+        <!-- Más productos se pueden agregar aquí -->
+    </div>
+
+    <footer>
+        Paulo.alexandre.sanchez.nunez@gmail.com
+    </footer>
+
+    <!-- Mensaje de error -->
+    <div class="error-message" id="errorMessage">
+        ❌ Debe seleccionar una talla antes de ver el producto
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // Manejar clics en las imágenes de producto
+        document.querySelectorAll('.product-image-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Mostrar mensaje de error
+                const errorMessage = document.getElementById('errorMessage');
+                const overlay = document.getElementById('overlay');
+                
+                errorMessage.style.display = 'block';
+                overlay.style.display = 'block';
+                
+                // Ocultar después de 3 segundos
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                    overlay.style.display = 'none';
+                }, 3000);
+            });
+        });
+        
+        // Manejar selección de tallas
+        document.querySelectorAll('.size-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                // Prevenir comportamiento por defecto para poder mostrar el mensaje
+                e.preventDefault();
+                
+                // Quitar selección anterior en el mismo producto
+                const productCard = this.closest('.product-card');
+                productCard.querySelectorAll('.size-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Marcar esta talla como seleccionada
+                this.classList.add('selected');
+                
+                // Después de 0.5 segundos, redirigir a la página de detalle
+                setTimeout(() => {
+                    window.location.href = this.getAttribute('href');
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
