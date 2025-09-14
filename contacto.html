@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Tienda de Zapatillas</title>
+    <style>
+        /* Estilo general (coherente con la página principal) */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            background-color: #1b1b1b;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff9800;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        .breadcrumb a {
+            color: #ff9800;
+            text-decoration: none;
+        }
+
+        .page-title {
+            text-align: center;
+            color: #ff9800;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .contact-info h2 {
+            color: #ff9800;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .info-item i {
+            color: #ff9800;
+            font-size: 24px;
+            margin-right: 15px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .info-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+        }
+
+        .info-item p {
+            margin: 0;
+            color: #ccc;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .contact-form h2 {
+            color: #ff9800;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #444;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff9800;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #ff9800;
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #ffa726;
+        }
+
+        .submit-btn:disabled {
+            background-color: #777;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 152, 0, 0.3);
+            border-radius: 50%;
+            border-top-color: #ff9800;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #ff4757;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .form-success {
+            display: none;
+            background-color: #4BB543;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .map-container {
+            margin-top: 40px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .map-container h2 {
+            color: #ff9800;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .map-frame {
+            height: 400px;
+            width: 100%;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(100%) invert(90%) contrast(110%);
+        }
+
+        .faq-section {
+            margin-top: 50px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .faq-section h2 {
+            color: #ff9800;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .faq-question {
+            color: #ff9800;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: #ccc;
+            padding: 10px;
+            background-color: #2a2a2a;
+            border-radius: 5px;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #1b1b1b;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-info, .contact-form {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>Tienda de Zapatillas</header>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Inicio</a> > <span>Contacto</span>
+        </div>
+
+        <h1 class="page-title">Contáctanos</h1>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2>Información de Contacto</h2>
+                
+                <div class="info-item">
+                    <i>📧</i>
+                    <div>
+                        <h3>Email</h3>
+                        <p>ivanedicionesedit@gmail.com</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i>📞</i>
+                    <div>
+                        <h3>Teléfono</h3>
+                        <p>+34 912 345 678</p>
+                        <p>Lunes a Domingo: 15:00 - 18:30</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i>💬</i>
+                    <div>
+                        <h3>Redes Sociales</h3>
+                        <p>Instagram: @tiendazapatillas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h2>Envíanos un mensaje</h2>
+                
+                <!-- Mensaje de éxito (oculto inicialmente) -->
+                <div class="form-success" id="form-success">
+                    <h3>¡Mensaje enviado con éxito!</h3>
+                    <p>Te hemos enviado un correo de confirmación. En breve nos pondremos en contacto contigo.</p>
+                </div>
+                
+                <form id="contact-form" action="https://formsubmit.co/ivanedicionesedit@gmail.com" method="POST">
+                    <!-- Campos ocultos para FormSubmit -->
+                    <input type="hidden" name="_next" value="https://tupagina.com/gracias.html">
+                    <input type="hidden" name="_subject" value="Nuevo mensaje de contacto - Tienda de Zapatillas">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre completo *</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                        <div class="error-message" id="nombre-error">Por favor, ingresa tu nombre</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                        <div class="error-message" id="email-error">Por favor, ingresa un email válido</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asunto">Asunto *</label>
+                        <select id="asunto" name="asunto" required>
+                            <option value="">Selecciona un asunto</option>
+                            <option value="consulta">Consulta general</option>
+                            <option value="pedido">Información sobre pedido</option>
+                            <option value="devolucion">Devolución o cambio</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                        <div class="error-message" id="asunto-error">Por favor, selecciona un asunto</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje *</label>
+                        <textarea id="mensaje" name="mensaje" required></textarea>
+                        <div class="error-message" id="mensaje-error">Por favor, escribe tu mensaje</div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submit-btn">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="faq-section">
+            <h2>Preguntas Frecuentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>¿Cuál es el tiempo de entrega?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>El tiempo de entrega estándar es de 10-14 días laborables para España peninsular. Para envíos internacionales, el tiempo puede variar entre 16-21 días laborables.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>¿Puedo cambiar o devolver un producto?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Unicamente aceptamos devoluciones si el producto llega en mal estado, en ese caso debe ser notificado en un plazo de 48H despues de obtener el producto.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>¿Cómo sé qué talla elegir?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No disponemos de una guia de tallas, pero recomendamos usar la talla que uses generalmente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        ivanedicionesedit@gmail.com
+    </footer>
+
+    <script>
+        // Funcionalidad para las preguntas frecuentes
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const plusSign = question.querySelector('span:last-child');
+                
+                if (answer.style.display === 'block') {
+                    answer.style.display = 'none';
+                    plusSign.textContent = '+';
+                } else {
+                    answer.style.display = 'block';
+                    plusSign.textContent = '-';
+                }
+            });
+        });
+
+        // Validación del formulario de contacto
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            // Validar campos en tiempo real
+            const inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('input', function() {
+                    const errorElement = document.getElementById(`${this.id}-error`);
+                    errorElement.style.display = 'none';
+                });
+            });
+            
+            // Manejar envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                inputs.forEach(input => {
+                    if (!validateField(input)) {
+                        isValid = false;
+                    }
+                });
+                
+                if (isValid) {
+                    // Cambiar estado del botón
+                    submitBtn.innerHTML = '<span class="loading"></span> Enviando...';
+                    submitBtn.disabled = true;
+                    
+                    // Simular envío (en un caso real, se enviaría automáticamente con FormSubmit)
+                    setTimeout(() => {
+                        // Mostrar mensaje de éxito
+                        document.getElementById('form-success').style.display = 'block';
+                        form.style.display = 'none';
+                        
+                        // Aquí se enviaría el formulario realmente
+                        // form.submit();
+                    }, 1500);
+                }
+            });
+            
+            function validateField(field) {
+                const errorElement = document.getElementById(`${field.id}-error`);
+                
+                if (field.value.trim() === '') {
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                
+                // Validación específica para email
+                if (field.type === 'email' && field.value.trim() !== '') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(field.value)) {
+                        errorElement.textContent = 'Por favor, ingresa un email válido';
+                        errorElement.style.display = 'block';
+                        return false;
+                    }
+                }
+                
+                errorElement.style.display = 'none';
+                return true;
+            }
+        });
+    </script>
+</body>
+</html>
